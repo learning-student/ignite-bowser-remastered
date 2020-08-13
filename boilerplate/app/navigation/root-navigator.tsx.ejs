@@ -6,11 +6,7 @@
  */
 import React from "react"
 import { NavigationContainer, NavigationContainerRef } from "@react-navigation/native"
-<% if (props.useExpo) { -%>
-import { createStackNavigator } from "@react-navigation/stack"
-<% } else { -%>  
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
-<% } -%>
 import { PrimaryNavigator } from "./primary-navigator"
 
 /**
@@ -18,7 +14,7 @@ import { PrimaryNavigator } from "./primary-navigator"
  * as well as what properties (if any) they might take when navigating to them.
  *
  * We recommend using MobX-State-Tree store(s) to handle state rather than navigation params.
- * 
+ *
  * For more information, see this documentation:
  *   https://reactnavigation.org/docs/params/
  *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
@@ -27,12 +23,7 @@ export type RootParamList = {
   primaryStack: undefined
 }
 
-<% if (props.useExpo) { -%>
-const Stack = createStackNavigator<RootParamList>()
-<% } else { -%>  
 const Stack = createNativeStackNavigator<RootParamList>()
-<% } -%>
-
 
 const RootStack = () => {
   return (
@@ -40,9 +31,6 @@ const RootStack = () => {
       screenOptions={{
         headerShown: false,
         gestureEnabled: true,
-        <% if (!props.useExpo) { %>
-        stackPresentation: "modal",
-        <% } -%>
       }}
     >
       <Stack.Screen

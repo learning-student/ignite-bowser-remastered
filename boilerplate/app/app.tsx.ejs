@@ -25,22 +25,38 @@ import {
   setRootNavigation,
   useNavigationPersistence,
 } from "./navigation"
-import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 
+<% if (props.useMobx) { %>
+import { RootStore, RootStoreProvider, setupRootStore } from "./models"
+<% } -%>
+// lets import theme
+import {theme} from './theme'
+
+<% if (props.useRedux) { -%>
+    import { Provider } from 'react-redux'
+    import createStore from '../Redux'
+<% } -%>
 // This puts screens in a native ViewController or Activity. If you want fully native
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
 // https://github.com/kmagiera/react-native-screens#using-native-stack-navigator
 import { enableScreens } from 'react-native-screens';
+// we will use react-native-paper as default theme
+import { Provider as PaperProvider } from 'react-native-paper';
 enableScreens()
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
-
+<% if (props.useRedux) { -%>
+    const store = createStore()
+<% } -%>
 /**
  * This is the root component of our app.
  */
 const App: Component<{}> = () => {
   const navigationRef = useRef<NavigationContainerRef>()
+  <% if (props.useMobx) { -%>
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
+  <% } -%>
+
 
   setRootNavigation(navigationRef)
   useBackButtonHandler(navigationRef, canExit)
@@ -49,15 +65,28 @@ const App: Component<{}> = () => {
     NAVIGATION_PERSISTENCE_KEY,
   )
 
+
+
   // Kick off initial async loading actions, like loading fonts and RootStore
   useEffect(() => {
+<% if (props.useMobx) { -%>
     (async () => {
-    <% if (props.useExpo) { -%>
-      await initFonts()
-    <% } -%>
       setupRootStore().then(setRootStore)
     })()
-  }, [])
+<% } -%>
+<% if (props.useGoogleAuth && (props.googleId !== "" )) { -%>
+    GoogleSignin.configure({
+      scopes: ['email', 'profile'], // what API you want to access on behalf of the user, default is email and profile
+      webClientId: '<%= props.googleId %>', // client ID of type WEB for your server (needed to verify user ID and offline access)
+      offlineAccess: true
+    });
+<% } %>
+
+<% if (props.useOnesignal) { -%>
+    OneSignal.init("<%= props.oneSignalId %>", {kOSSettingsKeyAutoPrompt : false, kOSSettingsKeyInAppLaunchURL: false, kOSSettingsKeyInFocusDisplayOption:2});
+    OneSignal.inFocusDisplaying(2); // Controls what should happen if a notification is received while the app is open. 2 means that the notification will go directly to the device's notification center.
+<% } %>
+   }, [])
 
   // Before we show the app, we have to wait for our state to be ready.
   // In the meantime, don't render anything. This will be the background
@@ -67,7 +96,12 @@ const App: Component<{}> = () => {
 
   // otherwise, we're ready to render the app
   return (
+   <PaperProvider theme={theme}>
+ <% if (props.useMobx) { -%>
     <RootStoreProvider value={rootStore}>
+<% }else if(props.useRedux){ -%>
+    <Provider store={store}>
+<% } %>
       <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
         <RootNavigator
           ref={navigationRef}
@@ -75,7 +109,12 @@ const App: Component<{}> = () => {
           onStateChange={onNavigationStateChange}
         />
       </SafeAreaProvider>
+<% if (props.useMobx) { -%>
     </RootStoreProvider>
+<% }else if(props.useRedux){ -%>
+    </Provider>
+<% } %>
+  </PaperProvider>
   )
 }
 

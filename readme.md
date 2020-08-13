@@ -1,4 +1,3 @@
-<p align="center"><img src="http://ir_public.s3.amazonaws.com/projects/ignite/ignite-bowser-launch-screen.png" alt="logo" width="414px"></p>
 
 # Ignite Bowser - the hottest React Native boilerplate
 
@@ -8,16 +7,20 @@
 
 Once you've installed [React Native](https://shift.infinite.red/painless-react-native-setup-for-mac-windows-linux-956c23d2abf9) and the [Ignite CLI](https://github.com/infinitered/ignite), you can get started with this boilerplate.
 
-This is the boilerplate that the [Infinite Red](https://infinite.red) team recommends and uses on a day-to-day basis. Prior art includes [Ignite Andross](https://github.com/infinitered/ignite-andross).
 
 Includes:
 
 - React Native
 - React Navigation 5
 - MobX State Tree [(Why MST?)](#About-The-Stack)
+- Redux, Redux - Sage
 - TypeScript
+- FastImage, GradientBackground
+- Social Login (Facebook, Google, Apple)
+- React Native Paper with Theming
 - Reactotron (requires 2.x)
 - And more!
+
 
 To see it in action, check out the blog post by Robin Heinze here: [Creating a Trivia App with Ignite Bowser](https://shift.infinite.red/creating-a-trivia-app-with-ignite-bowser-part-1-1987cc6e93a1).
 
@@ -28,8 +31,6 @@ You can also watch a [live coding demo](https://www.youtube.com/watch?v=OgiFKMd_
 Prerequisites:
 
 - For classic React Native: [install the React Native CLI](https://facebook.github.io/react-native/docs/getting-started) -- choose React Native CLI
-- For Expo: [install the Expo CLI](https://facebook.github.io/react-native/docs/getting-started) -- choose Expo CLI
-  - _Note:_ Expo support is experimental.
 
 First, install Ignite CLI globally:
 

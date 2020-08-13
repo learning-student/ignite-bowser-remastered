@@ -1,8 +1,8 @@
 {
-  "name": "ignite-bowser",
-  "description": "Infinite Red's hot boilerplate for React Native.",
+  "name": "ignite-bowser-ultimate",
+  "description": "React Native's ultimate boilerplate based on ignite-bowser",
   "license": "MIT",
-  "repository": "infinitered/ignite-bowser",
+  "repository": "vserifsaglam/ignite-bowser-ultimate",
   "homepage": "https://github.com/infinitered/ignite-bowser",
   "version": "5.2.1",
   "files": [
@@ -102,7 +102,6 @@
   "devDependencies": {
     "@semantic-release/git": "^7.0.17",
     "@types/jest": "^24.0.19",
-    "@types/node": "^12.12.4",
     "@types/ramda": "0.26.36",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
@@ -126,6 +125,7 @@
     "typescript": "^3.6.4"
   },
   "dependencies": {
+    "@types/node": "12.0.0",
     "ramda": "^0.26.1",
     "read-pkg-up": "^7.0.0"
   },
