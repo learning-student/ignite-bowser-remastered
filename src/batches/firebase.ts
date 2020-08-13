@@ -29,8 +29,7 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
     ignite.patchInFile(
       `${process.cwd()}/ios/${name}/AppDelegate.m`,
       {
-        after: `- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{`,
+        after: 'launchOptions\n{',
         insert: "if ([FIRApp defaultApp] == nil) {\n" +
           "    [FIRApp configure];\n" +
           "} "
