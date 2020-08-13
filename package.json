@@ -2,8 +2,8 @@
   "name": "ignite-bowser-ultimate",
   "description": "React Native's ultimate boilerplate based on ignite-bowser",
   "license": "MIT",
-  "repository": "vserifsaglam/ignite-bowser-ultimate",
-  "homepage": "https://github.com/infinitered/ignite-bowser",
+  "repository": "learning-student/ignite-bowser-ultimate",
+  "homepage": "https://github.com/learning-student/ignite-bowser-ultimate",
   "version": "5.2.1",
   "files": [
     "boilerplate.js",
@@ -14,9 +14,9 @@
     "readme.md"
   ],
   "author": {
-    "name": "Infinite Red",
-    "email": "npm@infinite.red",
-    "url": "https://github.com/infinitered/ignite-bowser"
+    "name": "Vahit Şerif Sağlam",
+    "email": "vahit.serif119@gmail.com",
+    "url": "https://github.com/learning-student"
   },
   "scripts": {
     "format": "npm-run-all format:*",
