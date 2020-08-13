@@ -30,6 +30,7 @@ export interface TemplateProps {
   facebookIosId: string,
   useSplashScreen: boolean,
   useMobx: boolean,
+  useFirebase: boolean,
   useRedux: boolean,
   theme: {
     colors: {},
@@ -270,6 +271,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     googleId: "",
     googleIosId: "",
     facebookIosId: "",
+    useFirebase: true,
     facebookAndroidId: "",
     useSplashScreen: false,
     useRedux: true,
