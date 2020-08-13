@@ -32,7 +32,7 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
         after: 'launchOptions\n{',
         insert: "if ([FIRApp defaultApp] == nil) {\n" +
           "    [FIRApp configure];\n" +
-          "} "
+          "} ",
       }
     )
   }

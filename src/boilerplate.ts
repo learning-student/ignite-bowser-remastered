@@ -78,6 +78,7 @@ export const install = async (toolbox: IgniteToolbox) => {
   const isMac = process.platform === "darwin"
   const reactNativeVersion = getReactNativeVersion(toolbox)
 
+
   if (parameters.options["dry-run"]) return
 
   const perfStart = new Date().getTime()
@@ -374,18 +375,18 @@ And here: https://guides.cocoapods.org/using/getting-started.html
       filesystem.remove(`${process.cwd()}/bin/postInstall`)
     }
 
-  // run through some additional installation process
-  let batches = [
-    firebase,
-    gesture_handler,
-    splash_screen,
-    facebook_auth,
-    mobx,
-    redux
-  ]
+    // run through some additional installation process
+    let batches = [
+      firebase,
+      gesture_handler,
+      splash_screen,
+      facebook_auth,
+      mobx,
+      redux,
+    ]
 
 
-  await runBatches(batches, toolbox, templateProps)
+    await runBatches(batches, toolbox, templateProps)
 
   } catch (e) {
     ignite.log(e)
