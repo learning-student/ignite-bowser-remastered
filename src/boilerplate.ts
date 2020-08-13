@@ -8,6 +8,7 @@ import splash_screen from "./batches/splash_screen"
 import facebook_auth from "./batches/facebook_auth"
 import mobx from "./batches/mobx"
 import redux from "./batches/redux"
+import firebase from "./batches/firebase"
 
 export interface TemplateProps {
   name: string,
@@ -375,6 +376,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
 
   // run through some additional installation process
   let batches = [
+    firebase,
     gesture_handler,
     splash_screen,
     facebook_auth,

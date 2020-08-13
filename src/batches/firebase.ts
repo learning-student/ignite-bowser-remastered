@@ -38,7 +38,5 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
     )
   }
 
-
-
-
+  return true;
 }
