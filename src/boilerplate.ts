@@ -221,8 +221,10 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     {
       template: "app/theme/typography.ts.ejs", target: "app/theme/typography.ts",
     },
+    {
+      template: "app/utils/social.ts.ejs", target: "app/utils/social.ts",
+    },
   ]
-
 
   let templatePath = await prompt.ask<GluegunAskResponse>({
     type: "input",
