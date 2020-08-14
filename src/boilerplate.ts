@@ -230,7 +230,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
   const templatePath = await prompt.ask<Promise<{ templatePath: string }>>({
     type: "input",
     name: "templatePath",
-    message: "Input absolute path of your template file",
+    message: "Input path of your template file",
   })
 
   let optionsFromFile = {}
