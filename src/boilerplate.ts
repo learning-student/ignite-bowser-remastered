@@ -11,8 +11,12 @@ import redux from "./batches/redux"
 import firebase from "./batches/firebase"
 import onesignal from "./batches/onesignal"
 
+
+let initialWorkingDir= process.cwd()
+
 export interface TemplateProps {
   name: string,
+  initialWorkingDir: string,
   igniteVersion: string | number,
   reactNativeVersion: string | number,
   reactNativeGestureHandlerVersion: string,
@@ -34,6 +38,9 @@ export interface TemplateProps {
   useMobx: boolean,
   useFirebase: boolean,
   useRedux: boolean,
+  usePaper: boolean,
+  copyAdditionalDirs: Array<{from: string, to: string}>,
+  copyAdditionalFiles: Array<{from: string, to: string}>
   theme: {
     colors: {},
   },
@@ -260,6 +267,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
 
   const templateProps: TemplateProps = {
     name,
+    initialWorkingDir,
     igniteVersion: meta.version(),
     reactNativeVersion: rnInstall.version,
     reactNativeGestureHandlerVersion: REACT_NATIVE_GESTURE_HANDLER_VERSION,
@@ -281,6 +289,9 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     useSplashScreen: false,
     useRedux: true,
     useMobx: true,
+    usePaper: false,
+    copyAdditionalDirs: [],
+    copyAdditionalFiles: [],
     theme: {
       colors: {},
     },

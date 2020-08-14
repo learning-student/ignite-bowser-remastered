@@ -29,31 +29,25 @@
  * within the components themselves if they are truly exceptions.
  *
  * 0 = none    - nothing. only here to bust out of a zero-based array.
- * 1 = xsmall    - elements contextually close to each other
- * 2 = small - for groups of closely related items or perhaps borders
- * 4 = medium  - ?
- * 5 = xmedium - ?
- * 6 = large   - between groups of content that aren't related?
- * 7 = huge    - ?
+ * 1 = xs    - elements contextually close to each other
+ * 2 = s - for groups of closely related items or perhaps borders
+ * 4 = m  - ?
+ * 5 = xn - ?
+ * 6 = l   - between groups of content that aren't related?
+ * 7 = xl    - ?
  */
 
 
 export interface SpacingInterface {
-  none: number,
-  xsmall: number,
-  small: number,
-  medium: number,
-  xmedium: number,
-  large: number,
-  huge: number
+  [key: string] : number
 }
 
 export const spacing: SpacingInterface = {
   none: 0,
-  xsmall: 5,
-  small: 10,
-  medium: 15,
-  xmedium: 20,
-  large: 25,
-  huge: 30,
+  xs: 5,
+  s: 10,
+  m: 15,
+  xm: 20,
+  l: 25,
+  xl: 30,
 }

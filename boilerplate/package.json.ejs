@@ -90,11 +90,12 @@
     "validate.js": "0.13.1"
   },
   "devDependencies": {
-
+<% if (props.useVectorIcons){ %>
+    "@types/react-native-vector-icons": "^6.4.5",
+<% } -%>
 <% if (props.includeDetox) { -%>
     "@react-native-firebase/app": "^8.3.0",
 <% } -%>
-
     "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/plugin-proposal-optional-catch-binding": "^7.0.0",
     "@storybook/addon-storyshots": "5.3.17",

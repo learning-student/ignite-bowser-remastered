@@ -96,7 +96,9 @@ const App: Component<{}> = () => {
 
   // otherwise, we're ready to render the app
   return (
+<% if (props.usePaper) { -%>
    <PaperProvider theme={theme}>
+<% } %>
  <% if (props.useMobx) { -%>
     <RootStoreProvider value={rootStore}>
 <% }else if(props.useRedux){ -%>
@@ -114,7 +116,9 @@ const App: Component<{}> = () => {
 <% }else if(props.useRedux){ -%>
     </Provider>
 <% } %>
+<% if (props.usePaper) { -%>
   </PaperProvider>
+ <% } %>
   )
 }
 
