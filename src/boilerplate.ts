@@ -9,6 +9,7 @@ import facebook_auth from "./batches/facebook_auth"
 import mobx from "./batches/mobx"
 import redux from "./batches/redux"
 import firebase from "./batches/firebase"
+import onesignal from "./batches/onesignal"
 
 export interface TemplateProps {
   name: string,
@@ -382,6 +383,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
       splash_screen,
       facebook_auth,
       mobx,
+      onesignal,
       redux,
     ]
 
