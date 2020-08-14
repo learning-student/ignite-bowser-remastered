@@ -1,7 +1,6 @@
 import { merge, pipe, assoc, omit, __ } from "ramda"
 import { getReactNativeVersion } from "./lib/react-native-version"
 import { IgniteToolbox, IgniteRNInstallResult } from "./types"
-import { GluegunAskResponse } from "gluegun/build/types/toolbox/prompt-types"
 import runBatches from "./batches/run_batches"
 import gesture_handler from "./batches/gesture_handler"
 import splash_screen from "./batches/splash_screen"
@@ -10,9 +9,9 @@ import mobx from "./batches/mobx"
 import redux from "./batches/redux"
 import firebase from "./batches/firebase"
 import onesignal from "./batches/onesignal"
+import { createPath } from "./lib/filesystem"
 
-
-let initialWorkingDir= process.cwd()
+const initialWorkingDir = process.cwd()
 
 export interface TemplateProps {
   name: string,
@@ -39,13 +38,12 @@ export interface TemplateProps {
   useFirebase: boolean,
   useRedux: boolean,
   usePaper: boolean,
-  copyAdditionalDirs: Array<{from: string, to: string}>,
-  copyAdditionalFiles: Array<{from: string, to: string}>
+  copyAdditionalDirs: Array<{ from: string, to: string }>,
+  copyAdditionalFiles: Array<{ from: string, to: string }>
   theme: {
     colors: {},
   },
 }
-
 
 // We need this value here, as well as in our package.json.ejs template
 const REACT_NATIVE_GESTURE_HANDLER_VERSION = "^1.5.0"
@@ -86,7 +84,6 @@ export const install = async (toolbox: IgniteToolbox) => {
   const isMac = process.platform === "darwin"
   const reactNativeVersion = getReactNativeVersion(toolbox)
 
-
   if (parameters.options["dry-run"]) return
 
   const perfStart = new Date().getTime()
@@ -108,7 +105,7 @@ export const install = async (toolbox: IgniteToolbox) => {
     .spin(`using the ${red("Infinite Red")} Bowser Remasted Boilerplate`)
     .succeed()
 
-  let useExpo = false
+  const useExpo = false
 
   let includeDetox = false
   if (isMac) {
@@ -138,16 +135,13 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     }
   }
   // attempt to install React Native or die trying
-  let rnInstall: IgniteRNInstallResult
-
-  rnInstall = await reactNative.install({
+  const rnInstall: IgniteRNInstallResult = await reactNative.install({
     name,
     version: reactNativeVersion,
     useNpm: !ignite.useYarn,
   })
 
   if (rnInstall.exitCode > 0) process.exit(rnInstall.exitCode)
-
 
   // remove the __tests__ directory, App.js, and unnecessary config files that come with React Native
   const filesToRemove = [
@@ -233,7 +227,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     },
   ]
 
-  let templatePath = await prompt.ask<GluegunAskResponse>({
+  const templatePath = await prompt.ask<Promise<{ templatePath: string }>>({
     type: "input",
     name: "templatePath",
     message: "Input absolute path of your template file",
@@ -241,20 +235,17 @@ And here: https://guides.cocoapods.org/using/getting-started.html
 
   let optionsFromFile = {}
 
-
   if (templatePath.templatePath !== "") {
-    let path = templatePath.templatePath
+    const path = createPath(templatePath.templatePath, initialWorkingDir)
 
-    let exists = filesystem.exists(path)
+    const exists = filesystem.exists(path)
 
     if (!exists) {
       print.error("Given template path could not found")
       process.exit(1)
-
     }
 
-    let content = await filesystem.readAsync(path, "json")
-
+    const content = await filesystem.readAsync(path, "json")
 
     if (!content) {
       print.error("Given template path could not read")
@@ -263,7 +254,6 @@ And here: https://guides.cocoapods.org/using/getting-started.html
 
     optionsFromFile = content
   }
-
 
   const templateProps: TemplateProps = {
     name,
@@ -298,13 +288,10 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     ...optionsFromFile,
   }
 
-  !
-
-
-    await ignite.copyBatch(toolbox, templates, templateProps, {
-      quiet: true,
-      directory: `${ignite.ignitePluginPath()}/boilerplate`,
-    })
+  await ignite.copyBatch(toolbox, templates, templateProps, {
+    quiet: true,
+    directory: `${ignite.ignitePluginPath()}/boilerplate`,
+  })
 
   await ignite.setIgniteConfig("navigation", "react-navigation")
 
@@ -378,7 +365,6 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     const igniteCommand = isIgniteInstalled ? "ignite" : "npx ignite-cli"
     await system.exec(`${igniteCommand} add ${boilerplate} ${debugFlag}`)
 
-
     if (!useExpo) {
       ignite.log("patching package.json to add solidarity postInstall")
       ignite.patchInFile(`${process.cwd()}/package.json`, {
@@ -390,7 +376,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     }
 
     // run through some additional installation process
-    let batches = [
+    const batches = [
       firebase,
       gesture_handler,
       splash_screen,
@@ -400,9 +386,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
       redux,
     ]
 
-
     await runBatches(batches, toolbox, templateProps)
-
   } catch (e) {
     ignite.log(e)
     print.error(`
@@ -415,12 +399,10 @@ And here: https://guides.cocoapods.org/using/getting-started.html
   const installDeps = ignite.useYarn ? "yarn" : "npm install"
   await system.run(installDeps)
 
-
   spinner.text = "linking assets"
   spinner.start()
   await system.exec("npx react-native link")
   spinner.succeed(`Linked assets`)
-
 
   // for Windows, fix the settings.gradle file. Ref: https://github.com/oblador/react-native-vector-icons/issues/938#issuecomment-463296401
   // for ease of use, just replace any backslashes with forward slashes
