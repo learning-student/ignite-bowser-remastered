@@ -1,9 +1,8 @@
-import { IgniteToolbox } from "../types"
 import { TemplateProps } from "../boilerplate"
 import { createPath } from "../lib/filesystem"
+import { GluegunToolbox } from "gluegun"
 
-
-export default async function install(toolbox: IgniteToolbox, templateProps: TemplateProps) {
+export default async function install(toolbox: GluegunToolbox, templateProps: TemplateProps) {
   const { filesystem } = toolbox
   const { copyAdditionalDirs, copyAdditionalFiles, initialWorkingDir } = templateProps
 

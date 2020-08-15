@@ -1,10 +1,10 @@
 import { merge, pipe, assoc, omit, __ } from "ramda"
 import { getReactNativeVersion } from "./lib/react-native-version"
 import { IgniteToolbox, IgniteRNInstallResult } from "./types"
-import runBatches from "./batches/run_batches"
-import gesture_handler from "./batches/gesture_handler"
-import splash_screen from "./batches/splash_screen"
-import facebook_auth from "./batches/facebook_auth"
+import runBatches from "./batches/runBatches"
+import gestureHandler from "./batches/gestureHandler"
+import splashScreen from "./batches/splashScreen"
+import facebookAuth from "./batches/facebookAuth"
 import mobx from "./batches/mobx"
 import redux from "./batches/redux"
 import firebase from "./batches/firebase"
@@ -78,6 +78,7 @@ export const install = async (toolbox: IgniteToolbox) => {
     strings,
     meta,
   } = toolbox
+
   const { colors } = print
   const { red, yellow, bold, gray, cyan } = colors
   const isWindows = process.platform === "win32"
@@ -102,12 +103,12 @@ export const install = async (toolbox: IgniteToolbox) => {
 
   const name = parameters.first
   const spinner = print
-    .spin(`using the ${red("Infinite Red")} Bowser Remasted Boilerplate`)
+    .spin(`using the ${red("Infinite Red")} Bowser Ultimate Boilerplate`)
     .succeed()
 
   const useExpo = false
-
   let includeDetox = false
+
   if (isMac) {
     const isCocoapodsInstalled = await system.which(`pod`)
     if (!isCocoapodsInstalled && reactNativeVersion >= "0.60") {
@@ -184,6 +185,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
 
   // generate some templates
   spinner.text = "▸ generating files"
+  spinner.start()
 
   const templates = [
     { template: "index.js.ejs", target: useExpo ? "App.js" : "index.js" },
@@ -197,10 +199,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     { template: "tsconfig.json", target: "tsconfig.json" },
     { template: "app/app.tsx.ejs", target: "app/app.tsx" },
     { template: "app/i18n/i18n.ts.ejs", target: "app/i18n/i18n.ts" },
-    {
-      template: "app/services/reactotron/reactotron.ts.ejs",
-      target: "app/services/reactotron/reactotron.ts",
-    },
+    { template: "app/services/reactotron/reactotron.ts.ejs", target: "app/services/reactotron/reactotron.ts", },
     { template: "app/utils/storage/storage.ts.ejs", target: "app/utils/storage/storage.ts" },
     {
       template: "app/utils/storage/storage.test.ts.ejs",
@@ -216,18 +215,11 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     },
     { template: "storybook/storybook.tsx.ejs", target: "storybook/storybook.tsx" },
     { template: "bin/postInstall", target: "bin/postInstall" },
-    {
-      template: "app/theme/color.ts.ejs", target: "app/theme/color.ts",
-    },
-    {
-      template: "app/theme/typography.ts.ejs", target: "app/theme/typography.ts",
-    },
-    {
-      template: "app/utils/social.ts.ejs", target: "app/utils/social.ts",
-    },
+    { template: "app/theme/color.ts.ejs", target: "app/theme/color.ts", },
+    { template: "app/theme/typography.ts.ejs", target: "app/theme/typography.ts", },
+    { template: "app/utils/social.ts.ejs", target: "app/utils/social.ts", },
   ]
-
-  const templatePath = await prompt.ask<Promise<{ templatePath: string }>>({
+  const templatePath = parameters.options['template-path'] ?? await prompt.ask<Promise<{ templatePath: string }>>({
     type: "input",
     name: "templatePath",
     message: "Input path of your template file",
@@ -237,7 +229,6 @@ And here: https://guides.cocoapods.org/using/getting-started.html
 
   if (templatePath.templatePath !== "") {
     const path = createPath(templatePath.templatePath, initialWorkingDir)
-
     const exists = filesystem.exists(path)
 
     if (!exists) {
@@ -378,9 +369,9 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     // run through some additional installation process
     const batches = [
       firebase,
-      gesture_handler,
-      splash_screen,
-      facebook_auth,
+      gestureHandler,
+      splashScreen,
+      facebookAuth,
       mobx,
       onesignal,
       redux,

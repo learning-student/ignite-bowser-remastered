@@ -6,7 +6,6 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
   const { name } = templateProps
 
   if (templateProps.useFacebookAuth) {
-
     // insert facebook android client id  into strings.xml and AndroidManifest.xml
     if (templateProps.facebookAndroidId && templateProps.facebookAndroidId !== "") {
       ignite.patchInFile(
@@ -29,7 +28,6 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
 
     // insert ios id into Info.plist
     if (templateProps.facebookIosId && templateProps.facebookIosId !== "") {
-
       ignite.patchInFile(
         `${process.cwd()}/ios/${name}/Info.plist`,
         {
@@ -57,9 +55,7 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
         },
       )
     }
-
   }
 
   return true
-
 }

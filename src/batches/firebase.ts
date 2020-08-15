@@ -1,12 +1,9 @@
 import { IgniteToolbox } from "../types"
 import { TemplateProps } from "../boilerplate"
 
-
-
 export default async function install(toolbox: IgniteToolbox, templateProps: TemplateProps) {
-  let {ignite} = toolbox
-  let {useFirebase, name} = templateProps
-
+  const { ignite } = toolbox
+  const { useFirebase, name } = templateProps
 
   // if we'll use firebase in our project we need apply some additional steps
   if (useFirebase) {
@@ -37,5 +34,5 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
     )
   }
 
-  return true;
+  return true
 }

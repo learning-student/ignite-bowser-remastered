@@ -121,11 +121,13 @@
     "semantic-release": "^15.13.28",
     "sinon": "^7.5.0",
     "tempy": "^0.3.0",
+    "ts-auto-mock": "^2.3.4",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.4"
   },
   "dependencies": {
     "@types/node": "12.0.0",
+    "path": "^0.12.7",
     "ramda": "^0.26.1",
     "read-pkg-up": "^7.0.0"
   },

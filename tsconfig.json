@@ -9,6 +9,7 @@
     "noImplicitAny": false,
     "noImplicitThis": true,
     "noUnusedLocals": true,
+    "allowJs": true,
     "sourceMap": true,
     "outDir": "./build",
     "types": ["node", "jest"]

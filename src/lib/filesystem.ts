@@ -1,4 +1,4 @@
-import path from "path"
+const path = require('path')
 
 export const createPath = (yourPath: string, cwd: string): string => {
   // this checks if path is absolute

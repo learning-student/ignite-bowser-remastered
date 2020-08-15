@@ -1,13 +1,11 @@
 import { IgniteToolbox } from "../types"
 import { TemplateProps } from "../boilerplate"
 
-export default  async function install(toolbox: IgniteToolbox, templateProps: TemplateProps) {
-  let {ignite, print}= toolbox
-  let {name, reactNativeGestureHandlerVersion} = templateProps
-
+export default async function install(toolbox: IgniteToolbox, templateProps: TemplateProps) {
+  const { ignite, print } = toolbox
+  const { name, reactNativeGestureHandlerVersion } = templateProps
 
   const spinner = print.spin('Installing Gesture Handler')
-
 
   ignite.log("adding react-native-gesture-handler")
   await ignite.addModule("react-native-gesture-handler", {
@@ -45,5 +43,4 @@ export default  async function install(toolbox: IgniteToolbox, templateProps: Te
   spinner.succeed('Installed Gesture Handler')
 
   return true
-
 }

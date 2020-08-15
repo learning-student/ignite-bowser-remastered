@@ -3,8 +3,7 @@ import { TemplateProps } from "../boilerplate"
 
 export default async function install(toolbox: IgniteToolbox, templateProps: TemplateProps) {
   const { ignite } = toolbox
-  let {name} = templateProps
-
+  const { name } = templateProps
 
   if (templateProps.useSplashScreen) {
     ignite.patchInFile(
