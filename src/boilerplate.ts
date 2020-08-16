@@ -20,7 +20,6 @@ export interface TemplateProps {
   reactNativeVersion: string | number,
   reactNativeGestureHandlerVersion: string,
   useVectorIcons: boolean,
-  animatable: boolean,
   i18n: boolean,
   includeDetox: boolean
   useExpo: boolean,
@@ -219,7 +218,8 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     { template: "app/theme/typography.ts.ejs", target: "app/theme/typography.ts", },
     { template: "app/utils/social.ts.ejs", target: "app/utils/social.ts", },
   ]
-  const templatePath = parameters.options['template-path'] ?? await prompt.ask<Promise<{ templatePath: string }>>({
+
+  const templatePath = parameters.options['template-path'] ? parameters.options : await prompt.ask<Promise<{ templatePath: string }>>({
     type: "input",
     name: "templatePath",
     message: "Input path of your template file",
@@ -253,7 +253,6 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     reactNativeVersion: rnInstall.version,
     reactNativeGestureHandlerVersion: REACT_NATIVE_GESTURE_HANDLER_VERSION,
     useVectorIcons: true,
-    animatable: false,
     i18n: true,
     includeDetox,
     useExpo: false,

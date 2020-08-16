@@ -1,10 +1,11 @@
 const execa = require("execa")
 const jetpack = require("fs-jetpack")
 const tempy = require("tempy")
-
+const path = require('path')
 const IGNITE_COMMAND = "npx ignite-cli"
 const APP = "IntegrationTest"
 const BOILERPLATE = `${__dirname}/../`
+const TEST_DIR = path.dirname(__dirname)
 
 // calling the ignite cli takes a while
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 800000
@@ -21,8 +22,11 @@ describe("a generated app", () => {
     // manually, so we can set up the git user first on circleci.
     process.chdir(appTemp)
 
-    const flags = ["--no-detox", "--no-expo", "--skip-git", "--debug", "--overwrite"].join(" ")
-    await execaShell(`${IGNITE_COMMAND} new ${APP} ${flags} --boilerplate ${BOILERPLATE}`)
+    // example template json
+    const template = path.join(TEST_DIR, 'example-template.json')
+
+    const flags = ["--no-detox", "--skip-git", "--debug", "--overwrite"].join(" ")
+    await execaShell(`${IGNITE_COMMAND} new ${APP} ${flags} --boilerplate ${BOILERPLATE} --template-path ${template}`)
 
     process.chdir(APP)
 

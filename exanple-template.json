@@ -1,0 +1,25 @@
+{
+  "useVectorIcons": true,
+  "i18n": true,
+  "includeDetox": true,
+  "useExpo": true,
+  "useGoogleAuth": true,
+  "useAppleAuth": true,
+  "useFacebookAuth": true,
+  "useOnesignal": true,
+  "oneSignalId": "",
+  "googleId": "",
+  "googleIosId": "",
+  "facebookAndroidId": "",
+  "facebookIosId": "",
+  "useSplashScreen": true,
+  "useMobx": true,
+  "useFirebase": true,
+  "useRedux": true,
+  "usePaper": true,
+  "copyAdditionalDirs": [],
+  "copyAdditionalFiles": [],
+  "theme": {
+    "colors": {}
+  }
+}
