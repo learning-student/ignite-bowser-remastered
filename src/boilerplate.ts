@@ -40,6 +40,7 @@ export interface TemplateProps {
   useFirebase: boolean,
   useRedux: boolean,
   usePaper: boolean,
+  useRestyle: boolean,
   copyAdditionalDirs: Array<{ from: string, to: string }>,
   copyAdditionalFiles: Array<{ from: string, to: string }>
 }
@@ -237,6 +238,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     useRedux: false,
     useMobx: false,
     usePaper: false,
+    useRestyle: false,
     copyAdditionalDirs: [],
     copyAdditionalFiles: [],
     ...optionsFromFile,

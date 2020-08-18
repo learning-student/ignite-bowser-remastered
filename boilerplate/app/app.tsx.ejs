@@ -25,12 +25,15 @@ import {
   setRootNavigation,
   useNavigationPersistence,
 } from "./navigation"
-
 <% if (props.useMobx) { %>
 import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 <% } -%>
 // lets import theme
 import {theme} from './theme'
+
+<% if (props.useRestyle) { -%>
+import {ThemeProvider} from '@shopify/restyle';
+<% } %>
 
 <% if (props.useRedux) { -%>
 import { Provider } from 'react-redux'
@@ -99,7 +102,9 @@ const App: Component<{}> = () => {
  <% } -%>
   // otherwise, we're ready to render the app
   return (
+<% if (props.useRestyle) { -%>
 <ThemeProvider theme={theme}>
+<% } %>
 <% if (props.usePaper) { -%>
    <PaperProvider theme={theme}>
 <% } %>
@@ -123,7 +128,9 @@ const App: Component<{}> = () => {
 <% if (props.usePaper) { -%>
   </PaperProvider>
  <% } %>
+<% if (props.useRestyle) { -%>
  </ThemeProvider>
+<% } %>
         )
 }
 
