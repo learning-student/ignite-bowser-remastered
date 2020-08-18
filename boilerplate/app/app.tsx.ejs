@@ -29,7 +29,7 @@ import {
 import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 <% } -%>
 // lets import theme
-import {theme} from './theme'
+import theme from './theme'
 
 <% if (props.useRestyle) { -%>
 import {ThemeProvider} from '@shopify/restyle';
@@ -37,7 +37,7 @@ import {ThemeProvider} from '@shopify/restyle';
 
 <% if (props.useRedux) { -%>
 import { Provider } from 'react-redux'
-import createStore from '../Redux'
+import createStore from './Redux'
 <% } -%>
 // This puts screens in a native ViewController or Activity. If you want fully native
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
