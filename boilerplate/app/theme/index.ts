@@ -1,10 +1,16 @@
-import { color } from './color'
-import {typography} from "./typography"
-import {spacing} from "./spacing"
-import { configureFonts } from 'react-native-paper';
+import borderRadius from "./radius";
+import { spacing } from "./spacing";
+import colors from './color'
+import typography from './typography'
 
-export const theme = {
-  colors: color,
-  fonts: configureFonts(typography),
-  spacing
+const theme = {
+  spacing,
+  colors,
+  borderRadius,
+  typography
 }
+
+
+export default theme;
+
+

@@ -10,8 +10,10 @@ import redux from "./batches/redux"
 import firebase from "./batches/firebase"
 import onesignal from "./batches/onesignal"
 import { createPath } from "./lib/filesystem"
+import copy from "./batches/copy"
+const path = require('path')
 
-const initialWorkingDir = process.cwd()
+const initialWorkingDir = path.dirname(process.cwd())
 
 export interface TemplateProps {
   name: string,
@@ -104,6 +106,33 @@ export const install = async (toolbox: IgniteToolbox) => {
   const spinner = print
     .spin(`using the ${red("Infinite Red")} Bowser Ultimate Boilerplate`)
     .succeed()
+
+  const templatePath = parameters.options["template-path"] ? parameters.options : await prompt.ask<Promise<{ templatePath: string }>>({
+    type: "input",
+    name: "templatePath",
+    message: "Input path of your template file",
+  })
+
+  let optionsFromFile = {}
+
+  if (templatePath.templatePath !== "") {
+    const path = createPath(templatePath.templatePath, initialWorkingDir)
+    const exists = filesystem.exists(path)
+
+    if (!exists) {
+      print.error("Given template path(" +  path +") could not found")
+      process.exit(1)
+    }
+
+    const content = await filesystem.readAsync(path, "json")
+
+    if (!content) {
+      print.error("Given template path could not read")
+      process.exit(1)
+    }
+
+    optionsFromFile = content
+  }
 
   const useExpo = false
   let includeDetox = false
@@ -198,7 +227,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     { template: "tsconfig.json", target: "tsconfig.json" },
     { template: "app/app.tsx.ejs", target: "app/app.tsx" },
     { template: "app/i18n/i18n.ts.ejs", target: "app/i18n/i18n.ts" },
-    { template: "app/services/reactotron/reactotron.ts.ejs", target: "app/services/reactotron/reactotron.ts", },
+    { template: "app/services/reactotron/reactotron.ts.ejs", target: "app/services/reactotron/reactotron.ts" },
     { template: "app/utils/storage/storage.ts.ejs", target: "app/utils/storage/storage.ts" },
     {
       template: "app/utils/storage/storage.test.ts.ejs",
@@ -214,37 +243,11 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     },
     { template: "storybook/storybook.tsx.ejs", target: "storybook/storybook.tsx" },
     { template: "bin/postInstall", target: "bin/postInstall" },
-    { template: "app/theme/color.ts.ejs", target: "app/theme/color.ts", },
-    { template: "app/theme/typography.ts.ejs", target: "app/theme/typography.ts", },
-    { template: "app/utils/social.ts.ejs", target: "app/utils/social.ts", },
+    { template: "app/theme/color.ts.ejs", target: "app/theme/color.ts" },
+    { template: "app/theme/typography.ts.ejs", target: "app/theme/typography.ts" },
+    { template: "app/utils/social.ts.ejs", target: "app/utils/social.ts" },
   ]
 
-  const templatePath = parameters.options['template-path'] ? parameters.options : await prompt.ask<Promise<{ templatePath: string }>>({
-    type: "input",
-    name: "templatePath",
-    message: "Input path of your template file",
-  })
-
-  let optionsFromFile = {}
-
-  if (templatePath.templatePath !== "") {
-    const path = createPath(templatePath.templatePath, initialWorkingDir)
-    const exists = filesystem.exists(path)
-
-    if (!exists) {
-      print.error("Given template path could not found")
-      process.exit(1)
-    }
-
-    const content = await filesystem.readAsync(path, "json")
-
-    if (!content) {
-      print.error("Given template path could not read")
-      process.exit(1)
-    }
-
-    optionsFromFile = content
-  }
 
   const templateProps: TemplateProps = {
     name,
@@ -277,6 +280,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     },
     ...optionsFromFile,
   }
+
 
   await ignite.copyBatch(toolbox, templates, templateProps, {
     quiet: true,
@@ -347,10 +351,12 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     // boilerplate adds itself to get plugin.js/generators etc
     // Could be directory, npm@version, or just npm name.  Default to passed in values
     spinner.stop()
+    spinner.text = 'Installing dependencies this might take a few minutes'
+    spinner.start()
 
     ignite.log("adding boilerplate to project for generator commands")
 
-    const boilerplate = parameters.options.b || parameters.options.boilerplate || "ignite-bowser"
+    const boilerplate = parameters.options.b || parameters.options.boilerplate || "ignite-bowser-ultimate"
     const isIgniteInstalled = await system.which(`ignite`)
     const igniteCommand = isIgniteInstalled ? "ignite" : "npx ignite-cli"
     await system.exec(`${igniteCommand} add ${boilerplate} ${debugFlag}`)
@@ -374,6 +380,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
       mobx,
       onesignal,
       redux,
+      copy
     ]
 
     await runBatches(batches, toolbox, templateProps)
@@ -388,6 +395,8 @@ And here: https://guides.cocoapods.org/using/getting-started.html
   // re-run yarn; will also install pods, because of our postInstall script.
   const installDeps = ignite.useYarn ? "yarn" : "npm install"
   await system.run(installDeps)
+
+  spinner.succeed('Dependencies installed')
 
   spinner.text = "linking assets"
   spinner.start()

@@ -7,7 +7,6 @@ export const mockTemplateProps = (): TemplateProps => ({
   reactNativeVersion: '0.63.0',
   reactNativeGestureHandlerVersion: '1.0.0',
   useVectorIcons: false,
-  animatable: false,
   i18n: false,
   includeDetox: false,
   useExpo: false,

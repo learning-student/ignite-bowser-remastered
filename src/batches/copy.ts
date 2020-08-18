@@ -6,11 +6,15 @@ export default async function install(toolbox: GluegunToolbox, templateProps: Te
   const { filesystem } = toolbox
   const { copyAdditionalDirs, copyAdditionalFiles, initialWorkingDir } = templateProps
 
+
+
   // let's copy all the directories and files
   copyAdditionalDirs.concat(copyAdditionalFiles).forEach(dir => {
     filesystem.copy(
       createPath(dir.from, initialWorkingDir),
-      createPath(dir.to, initialWorkingDir), { overwrite: true },
+      createPath(dir.to, process.cwd()), { overwrite: true },
     )
   })
+
+  return true
 }

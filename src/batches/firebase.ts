@@ -2,11 +2,13 @@ import { IgniteToolbox } from "../types"
 import { TemplateProps } from "../boilerplate"
 
 export default async function install(toolbox: IgniteToolbox, templateProps: TemplateProps) {
-  const { ignite } = toolbox
+  const { ignite, print } = toolbox
   const { useFirebase, name } = templateProps
+
 
   // if we'll use firebase in our project we need apply some additional steps
   if (useFirebase) {
+    const spinner = print.spin('Installing firebase')
     // first add google services into android/build.gradle file
     ignite.patchInFile(
       `${process.cwd()}/android/build.gradle`, {
@@ -32,6 +34,8 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
           "} ",
       }
     )
+
+    spinner.succeed('Firebase installed')
   }
 
   return true

@@ -1,6 +1,6 @@
-import { palette } from "./palette"
+<% if (props.usePaper) { %>
 import { DefaultTheme } from 'react-native-paper';
-
+<% } %>
 /**
  * Roles for colors.  Prefer using these over the palette.  It makes it easier
  * to change things.
@@ -10,75 +10,13 @@ import { DefaultTheme } from 'react-native-paper';
  * If you have a specific use-case, like a spinner color.  It makes more sense to
  * put that in the <Spinner /> component.
  */
-export const color = {
+ const color = {
+<% if (props.usePaper) { %>
   ...DefaultTheme.colors,
-  /**
-   * The palette is available to use, but prefer using the name.
-   */
-  palette,
-  /**
-   * A helper for making something see-thru. Use sparingly as many layers of transparency
-   * can cause older Android devices to slow down due to the excessive compositing required
-   * by their under-powered GPUs.
-   */
-  transparent: "rgba(0, 0, 0, 0)",
-  /**
-   * The screen background.
-   */
-  background: "<%= props.theme.colors.background %>",
-
-  /**
-   * The main tinting color.
-   */
-  primary: "<%= props.theme.colors.primary %>",
-
-   /**
-   * The main tinting color.
-   */
-   accent: "<%= props.theme.colors.accent %>",
-
-  /**
-   * The main tinting color.
-   */
-   surface: "<%= props.theme.colors.surface %>",
-
-  /**
-  * The main tinting color.
-  */
-  disabled: "<%= props.theme.colors.disabled %>",
-
-
- /**
-  * The main tinting color.
-  */
-  backdrop: "<%= props.theme.colors.backdrop %>",
-
-  /**
-   * The main tinting color, but darker.
-   */
-  primaryDarker:"<%= props.theme.colors.primaryDarker %>",
-
-  /**
-   * A subtle color used for borders and lines.
-   */
-  line: "<%= props.theme.colors.line %>",
-
-  /**
-   * The default color of text in many components.
-   */
-  text: "<%= props.theme.colors.text %>",
-
-
-
-  /**
-   * Error messages and icons.
-   */
-  error:  "<%= props.theme.colors.error %>",
-
-
-  /**
-  * Error messages and icons.
-  */
-  error:  "<%= props.theme.colors.error %>",
+<% } %>
 
 }
+
+export default color
+
+
