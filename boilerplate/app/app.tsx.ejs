@@ -99,6 +99,7 @@ const App: Component<{}> = () => {
  <% } -%>
   // otherwise, we're ready to render the app
   return (
+<ThemeProvider theme={theme}>
 <% if (props.usePaper) { -%>
    <PaperProvider theme={theme}>
 <% } %>
@@ -122,7 +123,8 @@ const App: Component<{}> = () => {
 <% if (props.usePaper) { -%>
   </PaperProvider>
  <% } %>
-  )
+ </ThemeProvider>
+        )
 }
 
 export default App
