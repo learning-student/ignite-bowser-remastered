@@ -1,26 +1,29 @@
 import React, { FunctionComponent as Component } from "react"
-import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
-import { Screen, Text } from "../components"
+import { ViewStyle, View } from "react-native"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
+//import { observer } from "mobx-react-lite"
+
 import { color } from "../theme"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.black,
 }
 
-export const <%= props.pascalName %>: Component = observer(function <%= props.pascalName %>() {
+const <%= props.pascalName %>: Component = function <%= props.pascalName %>() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
   // OR
   // const rootStore = useStores()
-  
+
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
-    <Screen style={ROOT} preset="scroll">
-      <Text preset="header" tx="<%= props.camelName %>.header" />
-    </Screen>
+      <View style={{flex: 1}}>
+
+      </View>
   )
-})
+}
+
+export default <%= props.pascalName %>
+//export default observer(<%= props.pascalName %>)

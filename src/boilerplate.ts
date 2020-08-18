@@ -11,6 +11,7 @@ import firebase from "./batches/firebase"
 import onesignal from "./batches/onesignal"
 import { createPath } from "./lib/filesystem"
 import copy from "./batches/copy"
+import templating from "./batches/templating"
 const path = require('path')
 
 const initialWorkingDir = path.dirname(process.cwd())
@@ -41,9 +42,6 @@ export interface TemplateProps {
   usePaper: boolean,
   copyAdditionalDirs: Array<{ from: string, to: string }>,
   copyAdditionalFiles: Array<{ from: string, to: string }>
-  theme: {
-    colors: {},
-  },
 }
 
 // We need this value here, as well as in our package.json.ejs template
@@ -212,41 +210,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
   spinner.stop()
 
   // generate some templates
-  spinner.text = "▸ generating files"
-  spinner.start()
 
-  const templates = [
-    { template: "index.js.ejs", target: useExpo ? "App.js" : "index.js" },
-    { template: "README.md", target: "README.md" },
-    { template: ".gitignore.ejs", target: ".gitignore" },
-    { template: ".env.example", target: ".env" },
-    { template: ".prettierignore", target: ".prettierignore" },
-    { template: ".solidarity", target: ".solidarity" },
-    { template: "babel.config.js", target: "babel.config.js" },
-    { template: "react-native.config.js", target: "react-native.config.js" },
-    { template: "tsconfig.json", target: "tsconfig.json" },
-    { template: "app/app.tsx.ejs", target: "app/app.tsx" },
-    { template: "app/i18n/i18n.ts.ejs", target: "app/i18n/i18n.ts" },
-    { template: "app/services/reactotron/reactotron.ts.ejs", target: "app/services/reactotron/reactotron.ts" },
-    { template: "app/utils/storage/storage.ts.ejs", target: "app/utils/storage/storage.ts" },
-    {
-      template: "app/utils/storage/storage.test.ts.ejs",
-      target: "app/utils/storage/storage.test.ts",
-    },
-    {
-      template: "app/navigation/root-navigator.tsx.ejs",
-      target: "app/navigation/root-navigator.tsx",
-    },
-    {
-      template: "app/navigation/primary-navigator.tsx.ejs",
-      target: "app/navigation/primary-navigator.tsx",
-    },
-    { template: "storybook/storybook.tsx.ejs", target: "storybook/storybook.tsx" },
-    { template: "bin/postInstall", target: "bin/postInstall" },
-    { template: "app/theme/color.ts.ejs", target: "app/theme/color.ts" },
-    { template: "app/theme/typography.ts.ejs", target: "app/theme/typography.ts" },
-    { template: "app/utils/social.ts.ejs", target: "app/utils/social.ts" },
-  ]
 
 
   const templateProps: TemplateProps = {
@@ -255,8 +219,8 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     igniteVersion: meta.version(),
     reactNativeVersion: rnInstall.version,
     reactNativeGestureHandlerVersion: REACT_NATIVE_GESTURE_HANDLER_VERSION,
-    useVectorIcons: true,
-    i18n: true,
+    useVectorIcons: false,
+    i18n: false,
     includeDetox,
     useExpo: false,
     useGoogleAuth: false,
@@ -267,27 +231,21 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     googleId: "",
     googleIosId: "",
     facebookIosId: "",
-    useFirebase: true,
+    useFirebase: false,
     facebookAndroidId: "",
     useSplashScreen: false,
-    useRedux: true,
-    useMobx: true,
+    useRedux: false,
+    useMobx: false,
     usePaper: false,
     copyAdditionalDirs: [],
     copyAdditionalFiles: [],
-    theme: {
-      colors: {},
-    },
     ...optionsFromFile,
   }
 
+  // run templating
+  await templating(toolbox, templateProps)
 
-  await ignite.copyBatch(toolbox, templates, templateProps, {
-    quiet: true,
-    directory: `${ignite.ignitePluginPath()}/boilerplate`,
-  })
 
-  await ignite.setIgniteConfig("navigation", "react-navigation")
 
   /**
    * Because of https://github.com/react-native-community/cli/issues/462,
