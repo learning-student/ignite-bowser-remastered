@@ -1,7 +1,7 @@
-import { takeLatest, all } from 'redux-saga/effects'
-import API from '../Services/api/api'
-import FixtureAPI from '../Services/api/fixture'
-import DebugConfig from '../config/env.dev'
+import { all } from 'redux-saga/effects'
+// import API from '../Services/api/api'
+// import FixtureAPI from '../Services/api/fixture'
+// import DebugConfig from '../config/env.dev'
 
 /* ------------- Types ------------- */
 
@@ -12,7 +12,7 @@ import DebugConfig from '../config/env.dev'
 
 // The API we use is only used from Sagas, so we create it here and pass along
 // to the sagas which need it.
-const api = DebugConfig.useFixtures ? FixtureAPI : API
+//const api = DebugConfig.useFixtures ? FixtureAPI : API
 
 /* ------------- Connect Types To Sagas ------------- */
 
