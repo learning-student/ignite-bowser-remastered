@@ -3,7 +3,9 @@ import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 
 /* ------------- Assemble The Reducers ------------- */
-export const reducers = combineReducers({})
+export const reducers = combineReducers({
+  Startup: require('./StartupRedux').reducer,
+})
 
 export default () => {
   let { store, sagasManager, sagaMiddleware } = configureStore(reducers, rootSaga)
