@@ -42,6 +42,7 @@ export interface TemplateProps {
   useRedux: boolean,
   usePaper: boolean,
   useRestyle: boolean,
+  screens: Array<string>,
   copyAdditionalDirs: Array<{ from: string, to: string }>,
   copyAdditionalFiles: Array<{ from: string, to: string }>
 }
@@ -242,6 +243,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     useRestyle: false,
     copyAdditionalDirs: [],
     copyAdditionalFiles: [],
+    screens: [],
     ...optionsFromFile,
   }
 

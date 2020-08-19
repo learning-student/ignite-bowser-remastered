@@ -107,3 +107,4 @@ export type IgniteProjectConfig = {
   boilerplateVersion?: string
   examples?: string[]
 }
+
