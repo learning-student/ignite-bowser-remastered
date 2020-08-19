@@ -6,8 +6,12 @@ import { TemplateProps } from "../boilerplate"
 export default async function install(toolbox: IgniteToolbox, templateProps: TemplateProps) {
   const { ignite } = toolbox
 
-  ignite.patchInFile({
-    before: "versionName \"1.0\"",
-    insert: "multiDexEnabled true"
-  })
+  await ignite.patchInFile(
+    `${process.cwd()}/android/app/build.gradle`,
+    {
+      after: "versionCode 1",
+      insert: "multiDexEnabled true",
+    })
+
+  return true
 }

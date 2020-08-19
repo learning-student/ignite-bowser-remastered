@@ -1,5 +1,5 @@
 const fixture = {
-  getData(){
+  get(){
 
   }
 }

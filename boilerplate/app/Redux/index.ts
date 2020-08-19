@@ -3,9 +3,7 @@ import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 
 /* ------------- Assemble The Reducers ------------- */
-export const reducers = combineReducers({
-  nav: require('./NavigationRedux').reducer,
-})
+export const reducers = combineReducers({})
 
 export default () => {
   let { store, sagasManager, sagaMiddleware } = configureStore(reducers, rootSaga)
@@ -17,7 +15,9 @@ export default () => {
 
       const newYieldedSagas = require('../Sagas').default
       sagasManager.cancel()
+      // @ts-ignore
       sagasManager.done.then(() => {
+        // @ts-ignore
         sagasManager = sagaMiddleware(newYieldedSagas)
       })
     })

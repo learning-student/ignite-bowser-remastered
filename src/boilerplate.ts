@@ -12,6 +12,7 @@ import onesignal from "./batches/onesignal"
 import { createPath } from "./lib/filesystem"
 import copy from "./batches/copy"
 import templating from "./batches/templating"
+import multidex from "./batches/multidex"
 const path = require('path')
 
 const initialWorkingDir = path.dirname(process.cwd())
@@ -340,7 +341,8 @@ And here: https://guides.cocoapods.org/using/getting-started.html
       mobx,
       onesignal,
       redux,
-      copy
+      copy,
+      multidex
     ]
 
     await runBatches(batches, toolbox, templateProps)
