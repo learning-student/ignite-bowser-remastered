@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
 import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
+import {reducer as StartupReducer} from './StartupRedux'
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
-  Startup: require('./StartupRedux').reducer,
+  Startup: StartupReducer,
 })
 
 export default () => {

@@ -18,7 +18,6 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
     { template: "tsconfig.json", target: "tsconfig.json" },
     { template: "app/app.tsx.ejs", target: "app/app.tsx" },
     { template: "app/i18n/i18n.ts.ejs", target: "app/i18n/i18n.ts" },
-    { template: "app/services/reactotron/reactotron.ts.ejs", target: "app/services/reactotron/reactotron.ts" },
     { template: "app/utils/storage/storage.ts.ejs", target: "app/utils/storage/storage.ts" },
     { template: "app/utils/storage/storage.test.ts.ejs", target: "app/utils/storage/storage.test.ts", },
     { template: "app/navigation/root-navigator.tsx.ejs", target: "app/navigation/root-navigator.tsx", },

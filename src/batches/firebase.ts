@@ -36,6 +36,7 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
     )
 
     spinner.succeed('Firebase installed')
+    print.info('after installation completed you have to copy your google-services.json file into android/app directory')
   }
 
   return true
