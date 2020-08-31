@@ -25,6 +25,16 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
       }
     )
 
+    // import firebase header file in AppDelegate.m
+    ignite.patchInFile(
+      `${process.cwd()}/ios/${name}/AppDelegate.m`,
+      {
+        after: '#import "AppDelegate.h"',
+        insert: '#import <Firebase.h>'
+      }
+    )
+
+    // add firebase configure command as the first line of launchOptions
     ignite.patchInFile(
       `${process.cwd()}/ios/${name}/AppDelegate.m`,
       {
