@@ -13,6 +13,7 @@ import { createPath } from "./lib/filesystem"
 import copy from "./batches/copy"
 import templating from "./batches/templating"
 import multidex from "./batches/multidex"
+import config from "./batches/config"
 const path = require('path')
 
 const initialWorkingDir = path.dirname(process.cwd())
@@ -43,6 +44,7 @@ export interface TemplateProps {
   usePaper: boolean,
   useRestyle: boolean,
   screens: Array<string>,
+  useConfig: boolean,
   copyAdditionalDirs: Array<{ from: string, to: string }>,
   copyAdditionalFiles: Array<{ from: string, to: string }>
 }
@@ -121,7 +123,7 @@ export const install = async (toolbox: IgniteToolbox) => {
     const exists = filesystem.exists(path)
 
     if (!exists) {
-      print.error("Given template path(" +  path +") could not found")
+      print.error("Given template path(" + path + ") could not found")
       process.exit(1)
     }
 
@@ -214,8 +216,6 @@ And here: https://guides.cocoapods.org/using/getting-started.html
 
   // generate some templates
 
-
-
   const templateProps: TemplateProps = {
     name,
     initialWorkingDir,
@@ -243,14 +243,13 @@ And here: https://guides.cocoapods.org/using/getting-started.html
     useRestyle: false,
     copyAdditionalDirs: [],
     copyAdditionalFiles: [],
+    useConfig: true,
     screens: [],
     ...optionsFromFile,
   }
 
   // run templating
   await templating(toolbox, templateProps)
-
-
 
   /**
    * Because of https://github.com/react-native-community/cli/issues/462,
@@ -336,6 +335,7 @@ And here: https://guides.cocoapods.org/using/getting-started.html
 
     // run through some additional installation process
     const batches = [
+      config,
       firebase,
       gestureHandler,
       splashScreen,

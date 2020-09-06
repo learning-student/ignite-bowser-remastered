@@ -25,6 +25,7 @@ export default async function install(toolbox: IgniteToolbox, templateProps: Tem
     { template: "storybook/storybook.tsx.ejs", target: "storybook/storybook.tsx" },
     { template: "bin/postInstall", target: "bin/postInstall" },
     { template: "app/theme/color.ts.ejs", target: "app/theme/color.ts" },
+    {template: 'app/theme/index.ts.ejs', target: 'app/theme/index.ts'},
     { template: "app/theme/typography.ts.ejs", target: "app/theme/typography.ts" },
     { template: "app/utils/social.ts.ejs", target: "app/utils/social.ts" },
   ]

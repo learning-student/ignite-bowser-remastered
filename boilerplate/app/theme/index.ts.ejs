@@ -6,19 +6,8 @@ import color from './color'
 
 <% if (props.useRestyle){ %>
 
-export interface GradientVariant {
-  colors ?: Array<string>,
-  locations ?: Array<number>,
-      start ?: {x: number, y: number},
-      end ?: {x: number, y: number},
-    }
-    export type Theme = BaseTheme & {
-      gradientVariants ?: {
-        [key: string]: GradientVariant
-      }
-    };
 
-    const theme : Theme = createTheme({
+const theme : Theme = createTheme({
     colors: {
       success: "#42ef4a",
       error: "#ff3d3d",
@@ -52,6 +41,7 @@ export interface GradientVariant {
     }
     });
 
+export type Theme = typeof theme;
 
 <% }else{ %>
 

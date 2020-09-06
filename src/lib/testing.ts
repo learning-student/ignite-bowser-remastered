@@ -25,6 +25,7 @@ export const mockTemplateProps = (): TemplateProps => ({
   useMobx: false,
   usePaper: false,
   useRestyle: false,
+  useConfig: false,
   copyAdditionalDirs: [],
   copyAdditionalFiles: [],
   screens: []

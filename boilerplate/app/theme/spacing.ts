@@ -39,7 +39,14 @@
 
 
 export interface SpacingInterface {
-  [key: string] : number
+  [key: string] : number,
+  none: number,
+  xs: number,
+  s: number,
+  m: number,
+  xm: number,
+  l: number,
+  xl: number
 }
 
 export const spacing: SpacingInterface = {
