@@ -46,6 +46,9 @@ import paper from './theme/paper'
 import { Provider as PaperProvider } from 'react-native-paper';
 <% } -%>
 enableScreens()
+<% if(props.useSplashScreen){ -%>
+import SplashScreen from 'react-native-splash-screen'
+<% } -%>
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 <% if (props.useRedux) { -%>
@@ -77,6 +80,10 @@ const App: Component<{}> = () => {
       setupRootStore().then(setRootStore)
     })()
 <% } -%>
+    <% if(props.useSplashScreen){ -%>
+      SplashScreen.hide();
+   <% } %>
+
 <% if (props.useGoogleAuth && (props.googleId !== "" )) { -%>
     GoogleSignin.configure({
       scopes: ['email', 'profile'], // what API you want to access on behalf of the user, default is email and profile
